@@ -8,8 +8,9 @@ Griddler
 
 Griddler is a Rails engine (full plugin) that provides an endpoint for the
 [SendGrid parse api](http://sendgrid.com/docs/API%20Reference/Webhooks/parse.html),
-[Cloudmailin parse api](http://cloudmailin.com) or
-[Postmark parse api](http://developer.postmarkapp.com/developer-inbound-parse.html)
+[Cloudmailin parse api](http://cloudmailin.com),
+[Postmark parse api](http://developer.postmarkapp.com/developer-inbound-parse.html) or
+[Mandrill parse api](http://help.mandrill.com/entries/21699367-Inbound-Email-Processing-Overview)
 that hands off a built email object to a class implemented by you.
 
 Tutorials
@@ -111,7 +112,7 @@ end
 the email object. `:hash` will return all options within a -- (surprise!) -- hash.
 * `config.email_service` tells Griddler which email service you are using. The supported
 email service options are `:sendgrid` (the default), `:cloudmailin` (expects
-multipart format) and `:postmark`.
+multipart format), `:postmark` and `:mandrill`.
 
 Testing In Your App
 -------------------
@@ -206,6 +207,8 @@ More Information
 * [Cloudmailin Docs](http://docs.cloudmailin.com/)
 * [Postmark](http://postmarkapp.com)
 * [Postmark Docs](http://developer.postmarkapp.com/)
+* [Mandrill](http://mandrill.com)
+* [Mandrill Docs](http://help.mandrill.com/forums/21092258-Inbound-Email-Processing)
 
 Credits
 -------

@@ -27,6 +27,11 @@ module Griddler
       processor_class.process(self)
     end
 
+    def self.process(params)
+      params = [params].flatten
+      params.each { |p| new(p).process }
+    end
+
     private
 
     attr_reader :params

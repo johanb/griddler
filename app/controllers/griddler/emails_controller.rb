@@ -1,6 +1,10 @@
 class Griddler::EmailsController < ActionController::Base
   def create
-    Griddler::Email.new(normalized_params).process
+    Griddler::Email.process(normalized_params)
+    head :ok
+  end
+
+  def check
     head :ok
   end
 

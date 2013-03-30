@@ -19,6 +19,13 @@ describe Griddler::EmailsController do
     end
   end
 
+  describe 'HEAD check' do
+    it 'is successful' do
+      head :check
+      response.should be_success
+    end
+  end
+
 
   def email_params
     {

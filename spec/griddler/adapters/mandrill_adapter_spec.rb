@@ -6,7 +6,7 @@ describe Griddler::Adapters::MandrillAdapter, '.normalize_params' do
 
     normalized_params = Griddler::Adapters::MandrillAdapter.normalize_params(params)
     normalized_params.each do |params|
-      params[:to].should eq 'The Token <token@reply.example.com>'
+      params[:to].should eq ['The Token <token@reply.example.com>']
       params[:from].should eq 'hernan@example.com'
       params[:subject].should eq 'hello'
       params[:text].should include('Dear bob')

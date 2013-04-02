@@ -11,7 +11,7 @@ module Griddler
       end
 
       def normalize_params
-        events.collect do |event|
+        events.map do |event|
           {
             to: full_email(event[:to].first),
             from: event[:from_email],
@@ -29,8 +29,7 @@ module Griddler
       attr_reader :params
 
       def events
-        return @events if defined?(@events)
-        @events = ActiveSupport::JSON.decode(params[:mandrill_events]).collect do |event|
+        @events ||= ActiveSupport::JSON.decode(params[:mandrill_events]).collect do |event|
           event['msg'].with_indifferent_access
         end
       end

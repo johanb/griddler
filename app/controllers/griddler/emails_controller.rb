@@ -1,6 +1,8 @@
 class Griddler::EmailsController < ActionController::Base
   def create
-    Griddler::Email.process(normalized_params)
+    normalized_params.each do |p|
+      Griddler::Email.new(p).process
+    end
     head :ok
   end
 
@@ -11,6 +13,6 @@ class Griddler::EmailsController < ActionController::Base
   private
 
   def normalized_params
-    Griddler.configuration.email_service.normalize_params(params)
+    Array.wrap(Griddler.configuration.email_service.normalize_params(params))
   end
 end

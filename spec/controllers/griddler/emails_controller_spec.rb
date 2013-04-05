@@ -19,14 +19,6 @@ describe Griddler::EmailsController do
     end
   end
 
-  describe 'HEAD check' do
-    it 'is successful' do
-      head :check
-      response.should be_success
-    end
-  end
-
-
   def email_params
     {
       headers: 'Received: by 127.0.0.1 with SMTP...',

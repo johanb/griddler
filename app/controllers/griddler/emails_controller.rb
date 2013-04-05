@@ -6,10 +6,6 @@ class Griddler::EmailsController < ActionController::Base
     head :ok
   end
 
-  def check
-    head :ok
-  end
-
   private
 
   def normalized_params

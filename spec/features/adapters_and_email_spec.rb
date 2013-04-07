@@ -8,12 +8,17 @@ describe 'Adapters act the same' do
 
         normalized_params = Griddler.configuration.email_service.normalize_params(params_for[adapter])
 
-        email.to.should eq([{
-          token: 'hi',
-          host: 'example.com',
-          full: 'Hello World <hi@example.com>',
-          email: 'hi@example.com'
-        }])
+        Array.wrap(normalized_params).each do |params|
+          email = Griddler::Email.new(params)
+
+          email.to.should eq([{
+            token: 'hi',
+            host: 'example.com',
+            full: 'Hello World <hi@example.com>',
+            email: 'hi@example.com'
+          }])
+        end
+
       end
     end
   end

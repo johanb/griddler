@@ -198,6 +198,31 @@ def pick_meaningful_recipient(recipients)
 end
 ```
 
+Using Griddler with Mandrill
+----------------------------
+
+When adding a webhook in their administration panel, Mandrill will issue a HEAD
+request to check if the webhook is valid (see
+[Adding Routes](http://help.mandrill.com/entries/21699367-Inbound-Email-Processing-Overview)).
+If the HEAD request fails, Mandrill will not allow you to add the webhook.
+Since Griddler is only configured to handle POST requests, you will not be able
+to add the webhook as-is. To solve this, add a temporary route to your
+application that can handle the HEAD request:
+
+```ruby
+# routes.rb
+get 'email_processor' => 'application#mandrill_check'
+```
+and
+```ruby
+# application_controller.rb
+def mandrill_check
+  head :ok
+end
+```
+
+Once you have correctly configured Mandrill, you can go ahead and delete this code.
+
 More Information
 ----------------
 

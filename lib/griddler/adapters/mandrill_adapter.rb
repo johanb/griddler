@@ -19,7 +19,8 @@ module Griddler
             text: event[:text],
             html: event[:html],
             raw_body: event[:raw_msg],
-            attachments: attachment_files(event)
+            attachments: attachment_files(event),
+            charsets: extract_charsets(event)
           }
         end
       end
@@ -45,6 +46,29 @@ module Griddler
         else
           email
         end
+      end
+
+      def extract_charsets(event)
+        mail = Mail.read_from_string event[:raw_msg]
+        if !mail.parts.empty?
+          charsets = { 'html' => 'binary', 'text' => 'binary' }
+          charsets.keys.each do |type|
+            if part = find_part_type(mail, type)
+              charsets[type] = part.content_type_parameters['charset']
+            end
+          end
+          ActiveSupport::JSON.encode charsets
+        else
+          nil
+        end
+      end
+
+      def find_part_type(mail, type)
+        types = {
+          'html' => /^text\/html/,
+          'text' => /^text\/plain/
+        }
+        mail.parts.find {|p| p.content_type =~ types.fetch(type) }
       end
 
       def attachment_files(event)
